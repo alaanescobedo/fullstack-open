@@ -12,6 +12,7 @@
   "scripts": {
     "dev": "npm run dev",
     "build":"npm run build",
+    "start": "npm run start",
     "preview":"npm run preview",
     "lint": "standard --fix"
   },
@@ -20,5 +21,10 @@
   "license": "ISC",
   "devDependencies": {
     "standard": "^16.0.4"
+  },
+  "standard": {
+    "ignore": [
+      "dist"
+    ]
   }
 }
