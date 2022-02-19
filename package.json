@@ -5,7 +5,8 @@
   "description": "",
   "workspaces":[
     "part1/**",
-    "part2/**"
+    "part2/**",
+    "part3/**"
   ],
   "main": "index.js",
   "scripts": {
