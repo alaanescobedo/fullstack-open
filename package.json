@@ -4,7 +4,8 @@
   "private": true,
   "description": "",
   "workspaces":[
-    "part1/**"
+    "part1/**",
+    "part2/**"
   ],
   "main": "index.js",
   "scripts": {
