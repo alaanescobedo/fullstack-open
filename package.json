@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "private": true,
   "description": "",
+  "workspaces":[
+    "part1/**"
+  ],
   "main": "index.js",
   "scripts": {
     "dev": "npm run dev",
