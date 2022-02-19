@@ -4,6 +4,8 @@ const cors = require('cors')
 const morgan = require('morgan')
 const { persons } = require('./db.json')
 
+const PORT = process.env.PORT || 3001
+
 const app = express()
 
 // Logger configuration (morgan)
@@ -14,6 +16,7 @@ morgan.token('body', (req, res) => JSON.stringify(req.body))
 app.use(express.json())
 app.use(morgan(morganConfiguration))
 app.use(cors())
+app.use(express.static('../../part2/phonebook/dist'))
 
 // Routes
 app.get('/info', (req, res) => {
@@ -114,6 +117,4 @@ const unknownEndpoint = (req, res) => {
 app.use(unknownEndpoint)
 
 // Server Listen
-app.listen(3001, () => {
-  console.log('Server running on port 3001')
-})
+app.listen(PORT)

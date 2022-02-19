@@ -10,11 +10,12 @@
   ],
   "main": "index.js",
   "scripts": {
-    "dev": "npm run dev",
     "build":"npm run build",
-    "start": "npm run start",
+    "dev": "npm run dev",
+    "heroku-postbuild": "npm run build --workspace=part2-phonebook",
     "preview":"npm run preview",
-    "lint": "standard --fix"
+    "lint": "standard --fix",
+    "start": "npm run start"
   },
   "keywords": [],
   "author": "",
