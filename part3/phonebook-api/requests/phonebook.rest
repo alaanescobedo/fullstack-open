@@ -1,0 +1,23 @@
+GET http://localhost:3001/info
+###
+GET http://localhost:3001/api/v1/persons
+###
+GET http://localhost:3001/api/v1/persons/6214164a8ed4518e8a0e48f8
+###
+POST http://localhost:3001/api/v1/persons
+Content-Type: application/json
+
+{
+  "name": "John Doe",
+  "number": "123-456789"
+}
+###
+PUT http://localhost:3001/api/v1/persons/6214167350b8cd57af64a8ad
+Content-Type: application/json
+
+{
+  "name": "John",
+  "number": "12-34-4567"
+}
+###
+DELETE http://localhost:3001/api/v1/persons/6214167350b8cd57af64a8ad
