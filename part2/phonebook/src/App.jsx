@@ -23,7 +23,7 @@ const addPersonFormInputOptions = {
 }
 
 // Helper functions
-function findPersonMatch (person, queryFilter) {
+function findPersonMatch(person, queryFilter) {
   const sanitizedName = person.name.toLowerCase()
   const sanitizedQuery = queryFilter.toLowerCase()
   return sanitizedName.includes(sanitizedQuery)
@@ -204,10 +204,10 @@ const App = () => {
       {
         persons.length > 0
           ? <PersonsDictionary
-              persons={persons}
-              queryFilter={searchFilter}
-              handleDelete={handleDelete}
-            />
+            persons={persons}
+            queryFilter={searchFilter}
+            handleDelete={handleDelete}
+          />
           : <h3>Loading...</h3>
       }
     </div>

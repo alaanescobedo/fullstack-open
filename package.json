@@ -13,19 +13,19 @@
     "build": "npm run build",
     "dev": "npm run dev",
     "heroku-postbuild": "npm run build --workspace=part2-phonebook",
+    "lint": "eslint '**/*.{js,jsx}' ",
     "preview": "npm run preview",
-    "lint": "standard --fix",
     "start": "npm run start"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "standard": "^16.0.4"
-  },
-  "standard": {
-    "ignore": [
-      "dist"
-    ]
+    "eslint": "^7.32.0",
+    "eslint-config-standard": "^16.0.3",
+    "eslint-plugin-import": "^2.25.4",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^5.2.0",
+    "eslint-plugin-react": "^7.28.0"
   }
 }

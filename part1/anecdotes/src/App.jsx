@@ -18,7 +18,7 @@ const labelOptions = {
 }
 
 // Function Handlers
-function generateRandomNum () {
+function generateRandomNum() {
   return Math.floor(Math.random() * anecdotes.length)
 }
 

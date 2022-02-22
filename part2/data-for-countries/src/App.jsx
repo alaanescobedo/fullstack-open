@@ -3,7 +3,7 @@ import { memo, useEffect, useState } from 'react'
 const WEATHER_API_KEY = import.meta.env.VITE_APP_WEATHER_API_KEY
 const WEATHER_API_URL = 'https://restcountries.com/v2/all'
 // Helper function
-function findCountryMatch (country, queryFilter) {
+function findCountryMatch(country, queryFilter) {
   const sanitizedCountryName = country.name.toLowerCase()
   const sanitizedQueryFilter = queryFilter.toLowerCase()
   return sanitizedCountryName.includes(sanitizedQueryFilter)
@@ -50,7 +50,7 @@ const CountryData = memo(({ country }) => {
             <img src={`http://openweathermap.org/img/wn/${weather.icon}@2x.png`} alt='' />
             <p>wind {weather.speed} m/s</p>
           </>
-          )
+        )
         : <p>Loading weather data...</p>}
     </div>
   )
@@ -84,14 +84,14 @@ const CountriesView = ({ countries, queryFilter, handleClick }) => {
                 handleClick={handleClick}
                 key={country.name}
               />
-              ))
+            ))
             : currentCountries.length === 1
               ? currentCountries.map(country => (
                 <CountryData
                   country={country}
                   key={country.name}
                 />
-                ))
+              ))
               : <p>Find a country</p>}
     </div>
   )
@@ -125,11 +125,13 @@ const App = () => {
         <input type='text' name='find' onChange={handleInputChange} />
       </div>
       {allCountries.length > 0
-        ? <CountriesView
+        ? (
+          <CountriesView
             countries={allCountries}
             queryFilter={queryFilter}
             handleClick={handleButtonClick}
           />
+        )
         : <p>Loading...</p>}
     </div>
   )

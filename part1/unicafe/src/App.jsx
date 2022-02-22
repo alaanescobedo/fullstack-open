@@ -88,11 +88,11 @@ const App = () => {
       <Title label={labelOptions.statistics} />
       {allVotes > 0
         ? <Statistics
-            good={good}
-            neutral={neutral}
-            bad={bad}
-            allVotes={allVotes}
-          />
+          good={good}
+          neutral={neutral}
+          bad={bad}
+          allVotes={allVotes}
+        />
         : <p>{labelOptions.noFeedback}</p>}
     </div>
   )

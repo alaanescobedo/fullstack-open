@@ -1,5 +1,5 @@
 // Handler functions
-function sumArrValues (arr) {
+function sumArrValues(arr) {
   return arr.reduce((accumulator, currentValue) =>
     accumulator + currentValue, 0
   )
