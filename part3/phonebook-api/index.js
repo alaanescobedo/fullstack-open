@@ -1,11 +1,14 @@
+require('dotenv').config()
+require('./mongo')
 const express = require('express')
 const cors = require('cors')
-
 const morgan = require('morgan')
-const { persons } = require('./db.json')
+
+const Person = require('./models/personModel')
+const { errorHandler } = require('./utils')
 
 const PORT = process.env.PORT || 3001
-
+const BUILD_PATH = '../../part2/phonebook/dist'
 const app = express()
 
 // Logger configuration (morgan)
@@ -16,105 +19,134 @@ morgan.token('body', (req, res) => JSON.stringify(req.body))
 app.use(express.json())
 app.use(morgan(morganConfiguration))
 app.use(cors())
-app.use(express.static('../../part2/phonebook/dist'))
+app.use(express.static(BUILD_PATH))
 
 // Routes
-app.get('/info', (req, res) => {
-  res.send(
-    `<p>Phonebook has info for ${persons.length} people</p>
+app.get('/info', async (req, res, next) => {
+  try {
+    const persons = await Person.find({})
+    res.send(
+      `<p>Phonebook has info for ${persons.length} people</p>
     <span>${new Date().toString()}</span>`
-  )
+    )
+  } catch (error) {
+    next(error)
+  }
 })
-app.get('/api/v1/persons', (req, res) => {
-  res.json(persons)
-})
-app.get('/api/v1/persons/:id', (req, res) => {
-  const { id } = req.params
-  const person = persons.find(person => person.id === Number(id))
-  if (!person) {
-    return res.status(404).json({
-      message: 'Person not found'
-    })
-  }
-  res.send(person)
-})
-app.post('/api/v1/persons', (req, res) => {
-  const { name, number } = req.body
-  const randomId = Math.floor(Math.random() * 100000)
-
-  if (!name || !number) {
-    return res.status(400).json({
-      error: 'Name and number are required'
-    })
-  }
-
-  const personAlreadyExist = persons.find(person => person.name === name)
-
-  if (personAlreadyExist) {
-    res.status(409).json({
-      error: 'Person already exist in the phonebook'
-    })
-  }
-
-  const newPersonData = {
-    name,
-    number,
-    id: randomId
-  }
-
-  persons.push(newPersonData)
-
-  res.send(newPersonData)
-})
-app.put('/api/v1/persons/:id', (req, res) => {
-  const { name, number } = req.body
-  const { id } = req.params
-
-  if (!name || !number) {
-    return res.status(400).json({
-      error: 'Name and number are required'
-    })
-  }
-
-  const personsToUpdate = persons.find(person => person.id === Number(id))
-  if (!personsToUpdate) {
-    return res.status(404).json({
-      error: 'Person not found'
-    })
-  }
-
-  const updatedPersonData = {
-    name,
-    number,
-    id
-  }
-
-  persons.forEach(person => {
-    if (person.id === Number(id)) {
-      person.name = name
-      person.number = number
+app.get('/api/v1/persons', async (req, res, next) => {
+  try {
+    const persons = await Person.find({})
+    if (!persons) {
+      return res.status(404).send({
+        error: 'No entries found'
+      })
     }
-  })
-
-  res.send(updatedPersonData)
-})
-app.delete('/api/v1/persons/:id', (req, res) => {
-  const { id } = req.params
-  const person = persons.find(person => person.id === Number(id))
-  if (!person) {
-    return res.status(404).json({
-      message: 'Person Not Found'
-    })
+    res.json(persons)
+  } catch (error) {
+    next(error)
   }
-  persons.splice(persons.indexOf(person), 1)
-  res.send({ statusCode: 204, message: 'Person deleted' })
+})
+app.get('/api/v1/persons/:id', async (req, res, next) => {
+  try {
+    const { id } = req.params
+    const person = await Person.findById(id)
+    if (!person) {
+      return res.status(404).json({
+        message: 'Person not found'
+      })
+    }
+    res.send(person)
+  } catch (error) {
+    next(error)
+  }
+})
+app.post('/api/v1/persons', async (req, res, next) => {
+  try {
+    const { name, number } = req.body
+
+    if (!name || !number) {
+      return res.status(400).json({
+        error: 'Name and number are required'
+      })
+    }
+
+    const personToCreate = await Person.find({ name })
+
+    if (personToCreate.length > 0) {
+      return res.status(409).json({
+        error: 'Person already exist in the phonebook'
+      })
+    }
+
+    const newPerson = new Person({
+      name,
+      number
+    })
+
+    const savedPerson = await newPerson.save()
+    res.send(savedPerson)
+  } catch (error) {
+    next(error)
+  }
+})
+app.put('/api/v1/persons/:id', async (req, res, next) => {
+  try {
+    const { name, number } = req.body
+    const { id } = req.params
+
+    if (!name || !number) {
+      return res.status(400).json({
+        error: 'Name and number are required'
+      })
+    }
+
+    const personToUpdate = await Person.findById(id)
+
+    if (!personToUpdate) {
+      return res.status(404).json({
+        error: 'Person not found'
+      })
+    }
+
+    const updatedPersonData = {
+      name: personToUpdate.name,
+      number
+    }
+
+    const updatedPerson = await Person.findByIdAndUpdate(personToUpdate.id, updatedPersonData, {
+      new: true,
+      runValidators: true
+    })
+
+    res.send(updatedPerson)
+  } catch (error) {
+    next(error)
+  }
+})
+app.delete('/api/v1/persons/:id', async (req, res, next) => {
+  try {
+    const { id } = req.params
+    const personToDelete = await Person.findByIdAndRemove(id)
+    if (!personToDelete) {
+      return res.status(404).json({
+        message: 'Person Not Found'
+      })
+    }
+
+    res.send({ statusCode: 204, message: 'Person deleted' })
+  } catch (error) {
+    next(error)
+  }
 })
 
-// Not Found 404
+// Route Not Found 404
 const unknownEndpoint = (req, res) => {
   res.status(404).send({ error: 'Unknown route' })
 }
 app.use(unknownEndpoint)
+
+// Error Handler
+app.use(errorHandler)
 
 // Server Listen
 app.listen(PORT)

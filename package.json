@@ -3,17 +3,17 @@
   "version": "1.0.0",
   "private": true,
   "description": "",
-  "workspaces":[
+  "workspaces": [
     "part1/**",
     "part2/**",
     "part3/**"
   ],
   "main": "index.js",
   "scripts": {
-    "build":"npm run build",
+    "build": "npm run build",
     "dev": "npm run dev",
     "heroku-postbuild": "npm run build --workspace=part2-phonebook",
-    "preview":"npm run preview",
+    "preview": "npm run preview",
     "lint": "standard --fix",
     "start": "npm run start"
   },
