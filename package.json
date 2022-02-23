@@ -16,7 +16,8 @@
     "heroku-postbuild": "npm run build --workspace=part-02-phonebook",
     "lint": "eslint '**/*.{js,jsx}' ",
     "preview": "npm run preview",
-    "start": "npm run start"
+    "start": "npm run start",
+    "test": "jest --verbose"
   },
   "keywords": [],
   "author": "",
