@@ -8,7 +8,7 @@ const Person = require('./models/personModel')
 const { errorHandler } = require('./utils')
 
 const PORT = process.env.PORT || 3001
-const BUILD_PATH = '../../part2/phonebook/dist'
+const BUILD_PATH = '../../part-02/phonebook/dist'
 const app = express()
 
 // Logger configuration (morgan)

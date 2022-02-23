@@ -1,1 +1,0 @@
-web: npm run start --workspace=part3-phonebook-api

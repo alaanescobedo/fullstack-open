@@ -4,15 +4,15 @@
   "private": true,
   "description": "",
   "workspaces": [
-    "part1/**",
-    "part2/**",
-    "part3/**"
+    "part-01/**",
+    "part-02/**",
+    "part-03/**"
   ],
   "main": "index.js",
   "scripts": {
     "build": "npm run build",
     "dev": "npm run dev",
-    "heroku-postbuild": "npm run build --workspace=part2-phonebook",
+    "heroku-postbuild": "npm run build --workspace=part-02-phonebook",
     "lint": "eslint '**/*.{js,jsx}' ",
     "preview": "npm run preview",
     "start": "npm run start"
