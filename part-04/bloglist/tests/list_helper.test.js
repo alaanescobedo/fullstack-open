@@ -76,3 +76,13 @@ describe('total likes', () => {
     expect(result).toBe(0)
   })
 })
+describe('favorite blog',()=>{
+  test('should return the blog with the highest number of likes',()=>{
+    const favorite = listHelper.favoriteBlog(listWithMultipleBlogs)
+    expect(favorite).toStrictEqual(listWithMultipleBlogs[2])
+  })
+  test('should return null if array if empty',()=>{
+    const favorite = listHelper.favoriteBlog(emptyList)
+    expect(favorite).toBeNull()
+  })
+})
