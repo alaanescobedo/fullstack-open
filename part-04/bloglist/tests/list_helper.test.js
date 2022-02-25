@@ -102,3 +102,16 @@ describe('most blogs', () => {
     expect(result).toBeNull()
   })
 })
+describe('most likes', () => {
+  test('should return the blog with the highest number of likes', () => {
+    const resultOfMultipleBlogs = listHelper.mostLikes(listWithMultipleBlogs)
+    const resultOfOneBlog = listHelper.mostLikes(listWithOneBlog)
+
+    expect(resultOfMultipleBlogs).toStrictEqual({ author: "Edsger W. Dijkstra", likes: 17 })
+    expect(resultOfOneBlog).toStrictEqual({ author: "Michael Chan", likes: 7 })
+  })
+  test('should return null if array is empty', () => {
+    const result = listHelper.mostLikes(emptyList)
+    expect(result).toBeNull()
+  })
+})

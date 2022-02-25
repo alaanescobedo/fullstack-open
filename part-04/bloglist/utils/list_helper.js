@@ -14,7 +14,6 @@ const favoriteBlog = (listBlogs) => {
   }, { likes: 0 })
   return favorite
 }
-
 const mostBlogs = (listBlogs) => {
   if (listBlogs.length === 0) return null
 
@@ -32,9 +31,27 @@ const mostBlogs = (listBlogs) => {
 
   return result
 }
+const mostLikes = (listBlogs) => {
+  if (listBlogs.length === 0) return null
+
+  const totalLikesByAuthor = listBlogs.reduce((acc, current) => {
+    acc[current.author] = acc[current.author] ? acc[current.author] + current.likes : current.likes
+    return acc
+  }, {})
+
+  const listOfTuples = Object.entries(totalLikesByAuthor)
+
+  const result = listOfTuples.reduce((acc, current) => {
+    const likesByAuthor = { author: current[0], likes: current[1] }
+    return likesByAuthor.likes > acc.likes ? likesByAuthor : acc
+  }, { author: '', likes: 0 })
+
+  return result
+}
 
 module.exports = {
   totalLikes,
   favoriteBlog,
-  mostBlogs
+  mostBlogs,
+  mostLikes
 }
