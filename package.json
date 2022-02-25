@@ -6,7 +6,8 @@
   "workspaces": [
     "part-01/**",
     "part-02/**",
-    "part-03/**"
+    "part-03/**",
+    "part-04/**"
   ],
   "main": "index.js",
   "scripts": {
@@ -15,12 +16,15 @@
     "heroku-postbuild": "npm run build --workspace=part-02-phonebook",
     "lint": "eslint '**/*.{js,jsx}' ",
     "preview": "npm run preview",
-    "start": "npm run start"
+    "start": "npm run start",
+    "test": "jest --verbose"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "jest": "^27.5.1",
+    "@types/jest": "^27.4.1",
     "eslint": "^7.32.0",
     "eslint-config-standard": "^16.0.3",
     "eslint-plugin-import": "^2.25.4",
