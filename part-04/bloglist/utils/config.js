@@ -6,7 +6,7 @@ let MONGODB_URI = process.env.MONGODB_URI.replace(
   process.env.MONGODB_PASSWORD
 )
 
-if(process.env.NODE_ENV === 'test') {
+if (process.env.NODE_ENV === 'test') {
   MONGODB_URI = process.env.TEST_MONGODB_URI.replace(
     '<PASSWORD>',
     process.env.MONGODB_PASSWORD

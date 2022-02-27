@@ -17,5 +17,8 @@
     "mongoose": "^6.2.2",
     "mongoose-unique-validator": "^3.0.0",
     "morgan": "^1.10.0"
+  },
+  "devDependencies": {
+    "supertest": "^6.2.2"
   }
 }

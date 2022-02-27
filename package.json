@@ -17,7 +17,7 @@
     "lint": "eslint '**/*.{js,jsx}' ",
     "preview": "npm run preview",
     "start": "npm run start",
-    "test": "NODE_ENV=test jest --verbose --runInBand --detectOpenHandles"
+    "test": "NODE_ENV=test jest --verbose --runInBand"
   },
   "keywords": [],
   "author": "",
